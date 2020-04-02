@@ -22,7 +22,7 @@ class Metadata extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {showAllMetadata: true};
+
 		this.toggleRequiredMetadata = this.toggleRequiredMetadata.bind(this);
 	}
 
@@ -59,14 +59,15 @@ class Metadata extends React.Component {
 
 	toggleRequiredMetadata = () => {
 
-		this.setState({showAllMetadata: !this.state.showAllMetadata});
-		this.props.onShowMetadata(this.state.showAllMetadata);
+		const {showAllMetadata} = this.props;
+
+		this.props.onShowMetadata(showAllMetadata);
 	};
 
 	render() {
-		const {entity, unFriendly} = this.props,
+		const {entity, showAllMetadata, unFriendly} = this.props,
 			{properties, required} = entity;
-		const toggleMessage = this.state.showAllMetadata ? <span>Show required<span>*</span> metadata</span> : <span>Show all metadata</span>;
+		const toggleMessage = showAllMetadata ? <span>Show required<span>*</span> metadata</span> : <span>Show all metadata</span>;
 		return (
 			<div className={compStyles.metadata}>
 				<p className={classNames(fontStyles.xxs, compStyles.filter)} onClick={this.toggleRequiredMetadata}>{toggleMessage}</p>
@@ -78,7 +79,7 @@ class Metadata extends React.Component {
 							elementParent={e1}
 							groupRef={true}
 							requiredList={required}
-							showAllMetadata={this.state.showAllMetadata}
+							showAllMetadata={showAllMetadata}
 							unFriendly={`${unFriendly}.${e1.name}`}>{
 							this.getPropertyRef(e1)[1].includes('#') ?
 								this.getPropertyRefProperties(e1).definitions[this.getInternalRef(e1)].properties.map((i2, l) =>

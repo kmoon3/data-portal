@@ -18,7 +18,7 @@
 .metadata .filter {
 	color: var(--primary);
 	cursor: pointer;
-	text-align: right;
+	float: right;
 }
 
 /* Show/hide required metadata - '*' indicator */
